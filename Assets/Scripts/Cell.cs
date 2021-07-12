@@ -13,6 +13,7 @@ public class Cell : MonoBehaviour
 
     public bool IsEmpty => Value == 0;
     public const int MaxValue = 11;
+    public bool HasMerged { get; private set; }
 
     [SerializeField]
     private Image image;
@@ -24,6 +25,37 @@ public class Cell : MonoBehaviour
         X = x;
         Y = y;
         Value = value;
+
+        UpdateCell();
+    }
+
+    public void IncreaseValue()
+    {
+        Value++;
+        HasMerged = true;
+
+        GameController.Instance.AddPoints(Points);
+
+        UpdateCell();
+    }
+
+    public void ResetFlags()
+    {
+        HasMerged = false;
+    }
+
+    public void  MergeWithCell(Cell otherCell)
+    {
+        otherCell.IncreaseValue();
+        SetValue(X, Y, 0);
+
+        UpdateCell();
+    }
+
+    public void MoveToCell(Cell target)
+    {
+        target.SetValue(target.X, target.Y, Value);
+        SetValue(X, Y, 0);
 
         UpdateCell();
     }

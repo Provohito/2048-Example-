@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Field : MonoBehaviour
 {
+    public static Field Instance;
+
     [Header("Field Properties")]
     public float CellSize;
     public float Spacing;
@@ -18,9 +20,10 @@ public class Field : MonoBehaviour
 
     private Cell[,] field;
 
-    private void Start()
+    private void Awake()
     {
-        GenerateField();
+        if (Instance == null)
+            Instance = this;
     }
 
     private void CreateField()

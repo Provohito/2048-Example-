@@ -12,8 +12,10 @@ public class Cell : MonoBehaviour
     public int Points => IsEmpty ? 0 : (int)Mathf.Pow(2, Value);
 
     public bool IsEmpty => Value == 0;
-    public const int MaxValue = 11;
     public bool HasMerged { get; private set; }
+
+    public const int MaxValue = 11;
+    
 
     [SerializeField]
     private Image image;
